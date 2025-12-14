@@ -1,0 +1,122 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.floating-action-bar {
+  position: fixed;
+  bottom: $spacing-lg;
+  right: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  z-index: 1000;
+
+  @include mobile {
+    bottom: $spacing-md;
+    right: $spacing-md;
+  }
+}
+
+.fab-item {
+  display: flex;
+  align-items: center;
+}
+
+.fab-button {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: $radius-xl;
+  cursor: pointer;
+  transition: all $transition-base;
+  box-shadow: 0 4px 12px var(--shadow);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-height: 44px; // Touch-friendly minimum height
+  min-width: 44px;
+
+  @include mobile {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.9rem;
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow);
+    border-color: var(--accent);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.liked {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+
+    .fab-icon {
+      animation: heartBeat 0.5s ease;
+    }
+  }
+}
+
+.fab-stats {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: $radius-xl;
+  box-shadow: 0 4px 12px var(--shadow);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-height: 44px; // Touch-friendly minimum height
+
+  @include mobile {
+    padding: $spacing-xs $spacing-sm;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+}
+
+.fab-icon {
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.fab-count {
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+

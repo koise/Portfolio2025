@@ -1,0 +1,43 @@
+@import './styles/variables';
+@import './styles/mixins';
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: $spacing-lg;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg $spacing-lg;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    padding: $spacing-md $spacing-sm;
+    gap: $spacing-md;
+  }
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  min-width: 0;
+
+  @include mobile {
+    gap: $spacing-md;
+  }
+}

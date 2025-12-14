@@ -1,0 +1,321 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.certifications {
+  padding: $spacing-3xl 0;
+  background-color: var(--bg-primary);
+
+  @include mobile {
+    padding: $spacing-2xl 0;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+
+  @include mobile {
+    padding: 0 $spacing-sm;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: $spacing-xl;
+  justify-content: flex-start;
+
+  @include mobile {
+    font-size: 1.25rem;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.section-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--text-primary);
+}
+
+.certifications-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: $spacing-md;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-primary);
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+  }
+
+  @include mobile {
+    padding-bottom: $spacing-sm;
+  }
+}
+
+.certifications-scroll {
+  display: flex;
+  gap: $spacing-lg;
+  width: max-content;
+  padding-right: $spacing-lg;
+
+  @include mobile {
+    gap: $spacing-md;
+    padding-right: $spacing-md;
+  }
+}
+
+.cert-card {
+  @include card;
+  min-width: 450px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  transition: all $transition-base;
+  flex-shrink: 0;
+
+  @include mobile {
+    min-width: 320px;
+    max-width: 320px;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px var(--shadow);
+  }
+}
+
+.cert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  padding: $spacing-lg $spacing-lg $spacing-md;
+  border-bottom: 1px solid var(--border);
+
+  @include mobile {
+    padding: $spacing-md $spacing-md $spacing-sm;
+  }
+}
+
+.cert-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+
+  @include mobile {
+    font-size: 1.1rem;
+  }
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  color: #FFD700;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+}
+
+.cert-laptop {
+  width: 100%;
+  padding: $spacing-lg;
+  background-color: var(--bg-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+.laptop-screen {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--card-bg);
+  border: 8px solid var(--border);
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--shadow);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--border);
+    border-radius: 0 0 4px 4px;
+    z-index: 1;
+  }
+
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--card-bg) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+}
+
+.cert-content {
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  flex: 1;
+
+  @include mobile {
+    padding: $spacing-md;
+    gap: $spacing-sm;
+  }
+}
+
+.cert-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+
+  @include mobile {
+    font-size: 0.9rem;
+  }
+}
+
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all $transition-base;
+  margin-top: auto;
+  width: fit-content;
+
+  @include mobile {
+    font-size: 0.9rem;
+  }
+
+  .link-icon {
+    width: 14px;
+    height: 14px;
+    transition: transform $transition-base;
+  }
+
+  &:hover {
+    color: var(--accent-hover);
+
+    .link-icon {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+// Certifications Wrapper
+.certifications-wrapper {
+  position: relative;
+}
+
+// Scroll Buttons
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: $radius-full;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+  box-shadow: 0 4px 12px var(--shadow);
+  backdrop-filter: blur(10px);
+
+  @include mobile {
+    width: 40px;
+    height: 40px;
+  }
+
+  .scroll-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform $transition-base;
+
+    @include mobile {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px var(--shadow);
+
+    .scroll-icon {
+      transform: scale(1.1);
+    }
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  &.scroll-left {
+    left: -24px;
+
+    @include mobile {
+      left: -20px;
+    }
+  }
+
+  &.scroll-right {
+    right: -24px;
+
+    @include mobile {
+      right: -20px;
+    }
+  }
+}

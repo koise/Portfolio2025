@@ -1,0 +1,112 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: all $transition-base;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  @include dark-theme {
+    background-color: rgba(15, 23, 42, 0.95);
+  }
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-sm $spacing-lg;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include mobile {
+    padding: $spacing-sm;
+  }
+}
+
+.nav-brand {
+  a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover {
+      color: var(--accent);
+    }
+
+    @include mobile {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: $spacing-xl;
+  align-items: center;
+
+  @include mobile {
+    gap: $spacing-sm;
+    font-size: 0.85rem;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color $transition-base;
+    position: relative;
+    font-size: 0.95rem;
+
+    &:hover {
+      color: var(--accent);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width $transition-base;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: $spacing-xs;
+  border-radius: $radius-full;
+  transition: transform $transition-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    transform: rotate(20deg) scale(1.1);
+    background-color: var(--bg-secondary);
+  }
+}

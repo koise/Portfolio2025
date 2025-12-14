@@ -1,0 +1,99 @@
+@import './variables';
+
+// Media Query Mixins
+@mixin mobile {
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-md}) and (max-width: #{$breakpoint-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+// Theme Mixins
+@mixin light-theme {
+  [data-theme="light"] & {
+    @content;
+  }
+}
+
+@mixin dark-theme {
+  [data-theme="dark"] & {
+    @content;
+  }
+}
+
+// Button Mixins
+@mixin button-base {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: $radius-md;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all $transition-base;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: var(--accent);
+  color: white;
+
+  &:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+
+  &:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+}
+
+// Card Mixins
+@mixin card {
+  background-color: var(--card-bg);
+  border-radius: $radius-xl;
+  border: 1px solid var(--border);
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px var(--shadow);
+  }
+}
+
+// Placeholder Mixins
+@mixin placeholder-image {
+  width: 100%;
+  height: 100%;
+  background: var(--placeholder-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--placeholder-text);
+  font-size: 1rem;
+  border-radius: $radius-md;
+  border: 2px dashed var(--border);
+}
+
