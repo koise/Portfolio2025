@@ -36,7 +36,7 @@
   background-color: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: $radius-lg;
-  padding: $spacing-lg;
+  padding: $spacing-md;
   transition: all $transition-base;
 
   @include mobile {

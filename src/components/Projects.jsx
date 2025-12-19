@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import './Projects.scss'
-import { FolderIcon, StarIcon, ExternalLinkIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons'
+import { FolderIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons'
 import project1 from '../assets/Project 1.png'
 import project2 from '../assets/Project 2.png'
 import project3 from '../assets/Project 3.png'
@@ -13,77 +13,75 @@ function Projects() {
   const [projectsCount, setProjectsCount] = useState(0)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
+  const [hoveredProject, setHoveredProject] = useState(null)
   const scrollContainerRef = useRef(null)
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Gzing App',
-      description: 'GzingApp is your all-in-one navigation companion with real-time traffic updates, emergency SOS features, and intelligent route planning. Get where you need to go safely and efficiently.',
-      technologies: ['Kotlin', 'Blade', 'Laravel', 'MySQL', 'Mapbox', 'Composer', 'Notimnatam'],
-      image: project1,
-      link: '#',
-      linkText: 'https://powderblue-pig-261057.hostingersite.com/',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'TechnoMatch',
-      description: 'A Gamified Programming Quiz Game that tests your knowledge of programming concepts and algorithms.',
-      technologies: ['React', 'Node.js', 'Monaco Editor', 'Judge0', 'Socket.io', 'Vite', 'SCSS', 'Laravel', 'MySQL'],
-      image: project2,
-      link: '#',
-      linkText: 'https://technomatch.fun/',
-      featured: true
-    },
-    {
-      id: 3,
-      title: 'PlayBright:Learning for Special Learner',
-      description: 'A web-based ordering system for a bakery business. It allows customers to order products online and track their order status.',
-      technologies: ['Vite', 'React', 'SCSS', 'Express.js', 'Firebase', 'Composer', 'Kotlin'],
-      image: project3,
-      link: 'https://playbright-4c1cd.web.app/login',
-      linkText: 'Explore Dashboard',
-      featured: false
-    },
-    {
-      id: 4,
-      title: 'BakedbyC: Web-Base Ordering System',
-      description: 'A web-based ordering system for a bakery business. It allows customers to order products online and track their order status.',
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
-      image: project4,
-      featured: false
-    },
-    {
-      id: 5,
-      title: 'Royal Global Food Company',
-      description: 'Welcome to Royal Global Food, your premier partner in food importing, distribution, and wholesaler, proudly based in Sydney, Australia.',
-      technologies: ['Shopify Builder', 'Liquid (Shopify)'],
-      image: project5,
-      link: 'https://www.royalglobalfood.com.au/',
-      linkText: 'https://www.royalglobalfood.com.au/',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Gracious Smile Dental Clinic',
-      description: 'Gracious Smile Dental Clinic is a dental clinic that provides dental services to the community.',
-      technologies: ['laravel', 'Mysql', 'Blade', 'SCSS', 'Composer'],
-      image: project6,
-      link: '#',
+const projects = [
+  {
+    id: 1,
+    title: 'Royal Global Food',
+    description: 'Sydney-based food importer, distributor, and wholesaler.',
+    technologies: ['Shopify', 'Liquid'],
+    image: project5,
+    featured: true,
+    color: '#ff0b44ff'
+  },
+  {
+    id: 5,
+    title: 'Gzing App',
+    description: 'Smart navigation app with real-time traffic, SOS, and route planning.',
+    technologies: ['Kotlin', 'Laravel', 'Blade', 'Mapbox'],
+    image: project1,
+    featured: true,
+    color: '#F5F5DC'
+  },
+  {
+    id: 3,
+    title: 'PlayBright',
+    description: 'Interactive learning platform for special learners.',
+    technologies: ['React', 'SCSS', 'Express', 'Firebase'],
+    image: project3,
+    featured: true,
+    color: '#9B59B6'
+  },
+  {
+    id: 2,
+    title: 'TechnoMatch',
+    description: 'Gamified programming quiz and coding challenge platform.',
+    technologies: ['React', 'Monaco', 'Judge0', 'Socket.io'],
+    image: project2,
+    featured: true,
+    color: '#d22b2bff'
+  },
+  {
+    id: 7,
+    title: 'Eye in the Sky',
+    description: 'Web-based security and surveillance management system.',
+    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML',],
+    image: project7,
+    featured: false,
+    color: '#f65200ff'
+  },
+  {
+    id: 6,
+    title: 'Gracious Smile Dental Clinic',
+    description: 'Clinic management system for dental services.',
+    technologies: ['Laravel', 'MySQL', 'Blade', 'PWA'],
+    image: project6,
+    featured: false,
+    color: '#0a89e3ff'
+  },
+  {
+    id: 4,
+    title: 'BakedbyC',
+    description: 'Online ordering and tracking system for a bakery.',
+    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML'],
+    image: project4,
+    featured: false,
+    color: '#d99560ff'
+  }
+]
 
-      featured: false
-    },
-    {
-      id: 7,
-      title: 'Eye in the Sky',
-      description: 'Eye in the Sky is a web-based application that completes solution for security and surveillance needs.',
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
-      image: project7,
-      link: '#',
-      featured: false
-    }
-  ]
 
   useEffect(() => {
     const count = projects.length
@@ -102,7 +100,7 @@ function Projects() {
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 500
+      const scrollAmount = 360
       const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
@@ -115,32 +113,35 @@ function Projects() {
     <section id="projects" className="projects">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">
-            <FolderIcon className="section-icon" />
-            <span>Featured Work</span>
-          </h2>
+          <div className="header-top">
+            <h2 className="section-title">
+              <FolderIcon className="section-icon" />
+              <span>Projects</span>
+            </h2>
+            <div className="header-accent" />
+          </div>
           <p className="section-subtitle">Explore my recent projects and technical achievements</p>
         </div>
 
         <div className="projects-wrapper">
           <div className="projects-scroll-container" ref={scrollContainerRef} onScroll={handleScroll}>
             <div className="projects-scroll">
-              {projects.map((project) => (
-                <div key={project.id} className="project-card">
-                  <div className="project-header">
-                    <div className="header-content">
-                      <h3 className="project-title">{project.title}</h3>
-                      {project.featured && (
-                        <div className="featured-badge">
-                          <StarIcon className="star-icon" />
-                          <span>Featured</span>
-                        </div>
-                      )}
+              {projects.map((project, index) => (
+                <div 
+                  key={project.id} 
+                  className={`project-card ${hoveredProject === project.id ? 'hovered' : ''}`}
+                  onMouseEnter={() => setHoveredProject(project.id)}
+                  onMouseLeave={() => setHoveredProject(null)}
+                  style={{ '--project-color': project.color, '--animation-order': index }}
+                >
+                  {project.featured && (
+                    <div className="featured-corner">
+                      <StarIcon className="corner-star" />
                     </div>
-                  </div>
-
-                  <div className="project-laptop">
-                    <div className="laptop-screen">
+                  )}
+                  
+                  <div className="project-visual">
+                    <div className="visual-frame">
                       <img 
                         src={project.image} 
                         alt={project.title}
@@ -153,24 +154,31 @@ function Projects() {
                       <div className="placeholder-image" style={{ display: 'none' }}>
                         <span className="image-text">{project.title}</span>
                       </div>
+                      <div className="image-overlay" />
                     </div>
                   </div>
 
-                  <div className="project-content">
+                  <div className="project-details">
+                    <div className="details-header">
+                      <h3 className="project-title">{project.title}</h3>
+                    </div>
+                    
                     <p className="project-description">{project.description}</p>
                     
-                    <div className="project-technologies">
-                      {project.technologies.map((tech, index) => (
-                        <span key={index} className="tech-tag">
+                    <div className="project-tech">
+                      {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                        <span key={techIndex} className="tech-badge">
                           {tech}
                         </span>
                       ))}
+                      {project.technologies.length > 4 && (
+                        <span className="tech-more">+{project.technologies.length - 4}</span>
+                      )}
                     </div>
+                  </div>
 
-                    <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
-                      <span>{project.linkText}</span>
-                      <ExternalLinkIcon className="link-icon" />
-                    </a>
+                  <div className="project-number">
+                    {String(index + 1).padStart(2, '0')}
                   </div>
                 </div>
               ))}
@@ -178,24 +186,34 @@ function Projects() {
           </div>
 
           {canScrollLeft && (
-            <button className="scroll-button scroll-left" onClick={() => scroll('left')} aria-label="Scroll left">
-              <ChevronLeftIcon className="scroll-icon" />
+            <button 
+              className="nav-button nav-left" 
+              onClick={() => scroll('left')} 
+              aria-label="Scroll left"
+            >
+              <ChevronLeftIcon className="nav-icon" />
             </button>
           )}
 
           {canScrollRight && (
-            <button className="scroll-button scroll-right" onClick={() => scroll('right')} aria-label="Scroll right">
-              <ChevronRightIcon className="scroll-icon" />
+            <button 
+              className="nav-button nav-right" 
+              onClick={() => scroll('right')} 
+              aria-label="Scroll right"
+            >
+              <ChevronRightIcon className="nav-icon" />
             </button>
           )}
         </div>
 
         <div className="projects-footer">
-          <p className="total-projects">Total Projects: <strong>{projectsCount}</strong></p>
-          <a href="#" className="view-all-link">
-            View All Projects
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <div className="footer-stat">
+          
+          </div>
+          <a href="https://github.com/koise?tab=repositories" className="view-more">
+            <span>View All Projects</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10H16M12 6L16 10L12 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
         </div>

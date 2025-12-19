@@ -4,32 +4,32 @@ import { BriefcaseIcon, CalendarIcon, MicrophoneIcon, MonitorIcon } from './Icon
 function Engagements() {
   const engagements = [
     {
-      title: 'Shopify Admin and Web Builder UI/UX',
+      title: 'Shopify Admin Assistant & Web Builder',
       date: 'Current',
       type: 'work',
       icon: MonitorIcon,
-      progress: 100
+      description: 'Building intuitive e-commerce interfaces'
     },
     {
-      title: 'Code the laravel way: Guest Speaker',
-      date: 'November 2025',
+      title: 'Code the Laravel Way: Guest Speaker',
+      date: 'Nov 2025',
       type: 'event',
       icon: MicrophoneIcon,
-      progress: 0
+      description: 'Sharing Laravel best practices'
     },
     {
-      title: 'Freelancing',
-      date: 'September 2023',
+      title: 'Freelance Development',
+      date: 'Sep 2023',
       type: 'work',
       icon: BriefcaseIcon,
-      progress: 100
+      description: 'Independent web development projects'
     },
     {
       title: 'Hello World!',
-      date: 'August 2022',
+      date: 'Aug 2022',
       type: 'milestone',
       icon: CalendarIcon,
-      progress: 100
+      description: 'Started development journey'
     }
   ]
 
@@ -39,19 +39,30 @@ function Engagements() {
         <BriefcaseIcon className="section-icon" />
         <span>Engagements</span>
       </h2>
-      <div className="engagements-list">
+      <div className="timeline">
         {engagements.map((engagement, index) => {
           const IconComponent = engagement.icon
           const isCurrent = engagement.date === 'Current'
+          const isLast = index === engagements.length - 1
+          
           return (
-            <div key={index} className="engagement-item">
-              <div className="engagement-marker">
-                <IconComponent className="marker-icon" />
+            <div key={index} className={`timeline-item ${isCurrent ? 'active' : ''}`}>
+              <div className="timeline-marker">
+                <div className="marker-outer">
+                  <IconComponent className="marker-icon" />
+                </div>
+                {!isLast && <div className="timeline-line" />}
               </div>
-              <div className="engagement-content">
-                <div className="engagement-header">
-                  <h3 className="engagement-title">{engagement.title}</h3>
-                  <span className={`engagement-date ${isCurrent ? 'current' : ''}`}>{engagement.date}</span>
+              
+              <div className="timeline-content">
+                <div className="content-card">
+                  <div className="card-header">
+                    <h3 className="engagement-title">{engagement.title}</h3>
+                    <span className={`engagement-date ${isCurrent ? 'current' : ''}`}>
+                      {engagement.date}
+                    </span>
+                  </div>
+                  <p className="engagement-description">{engagement.description}</p>
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 import ThemeProvider from './context/ThemeContext'
 import Hero from './components/Hero'
-import About from './components/About'
 import Skills from './components/Skills'
 import Engagements from './components/Engagements'
 import Projects from './components/Projects'
@@ -17,11 +16,11 @@ function App() {
           <Hero />
           <div className="main-content">
             <div className="left-column">
-              <Skills />
-            </div>
-            <div className="right-column">
               <Engagements />
               <Contact />
+            </div>
+            <div className="right-column">
+              <Skills />
             </div>
           </div>
           <Projects />

@@ -22,7 +22,8 @@ import {
   HiUser,
   HiEye,
   HiHeart,
-  HiOutlineHeart
+  HiOutlineHeart,
+  HiMapPin
 } from 'react-icons/hi2'
 
 import { 
@@ -94,6 +95,7 @@ export const GlobeIcon = FaGlobe
 export const StarIcon = FaStar
 export const ExternalLinkIcon = FaArrowUpRightFromSquare
 export const FolderIcon = FaFolder
+export const LocationIcon = HiMapPin
 
 // ---------------------
 // Social Icons

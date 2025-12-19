@@ -18,6 +18,7 @@
 
 .fab-item {
   display: flex;
+  justify-content: right;
   align-items: center;
 }
 
@@ -35,7 +36,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  min-height: 44px; // Touch-friendly minimum height
+  min-height: 44px;
   min-width: 44px;
 
   @include mobile {
@@ -64,6 +65,30 @@
       animation: heartBeat 0.5s ease;
     }
   }
+
+  // Theme Toggle Button Styling
+  &.fab-theme {
+    justify-content: center;
+    padding: $spacing-sm;
+    
+    @include mobile {
+      padding: $spacing-xs;
+    }
+
+    &:hover {
+      background-color: var(--accent);
+      color: white;
+
+      .fab-icon {
+        color: white;
+      }
+    }
+
+    .fab-icon {
+      color: var(--text-primary);
+      transition: color $transition-base;
+    }
+  }
 }
 
 .fab-stats {
@@ -78,7 +103,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  min-height: 44px; // Touch-friendly minimum height
+  min-height: 44px;
 
   @include mobile {
     padding: $spacing-xs $spacing-sm;
@@ -93,6 +118,14 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  width: 20px;
+  height: 20px;
+
+  @include mobile {
+    font-size: 1.1rem;
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .fab-count {
@@ -100,6 +133,11 @@
   font-weight: 700;
   min-width: 24px;
   text-align: center;
+
+  @include mobile {
+    font-size: 0.875rem;
+    min-width: 20px;
+  }
 }
 
 @keyframes heartBeat {
@@ -119,4 +157,3 @@
     transform: scale(1);
   }
 }
-

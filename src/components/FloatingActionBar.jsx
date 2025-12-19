@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react'
-import { HeartIcon, HeartOutlineIcon, EyeIcon } from './Icons'
+import { useTheme } from '../context/ThemeContext'
+import { HeartIcon, HeartOutlineIcon, SunIcon, MoonIcon } from './Icons'
 import './FloatingActionBar.scss'
 
 function FloatingActionBar() {
+  const { theme, toggleTheme } = useTheme()
   const [likes, setLikes] = useState(0)
   const [visits, setVisits] = useState(0)
   const [hasLiked, setHasLiked] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
     // Load likes from localStorage
     const storedLikes = localStorage.getItem('portfolioLikes')
     if (storedLikes) {
@@ -35,6 +46,10 @@ function FloatingActionBar() {
     // Check if user has already liked
     const liked = localStorage.getItem('portfolioHasLiked') === 'true'
     setHasLiked(liked)
+
+    return () => {
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
 
   const handleLike = () => {
@@ -61,6 +76,24 @@ function FloatingActionBar() {
 
   return (
     <div className="floating-action-bar">
+      {/* Theme Toggle - Only on Mobile */}
+      {isMobile && (
+        <div className="fab-item">
+          <button 
+            className="fab-button fab-theme"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? (
+              <SunIcon className="fab-icon" />
+            ) : (
+              <MoonIcon className="fab-icon" />
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Like Button */}
       <div className="fab-item">
         <button 
           className={`fab-button ${hasLiked ? 'liked' : ''}`}
