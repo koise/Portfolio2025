@@ -82,7 +82,7 @@ function Certifications() {
       featured: false
     },
     {
-      id: 3,
+      id: 7,
       title: 'Typography Trends in 2025: Shaping the Future of Design and User Experience',
       description: 'The basics of typography, and the basics of typography. It also covers the basics of typography and the different types of typography.',
       image: cert3,
