@@ -1,5 +1,6 @@
 // Icons.jsx
 // Re-export commonly used icons from react-icons
+// All icon exports are available for use across components
 
 import { 
   HiEnvelope,
@@ -37,7 +38,8 @@ import {
   FaMicrosoft,
   FaStar,
   FaArrowUpRightFromSquare,
-  FaFolder
+  FaFolder,
+  FaJava
 } from 'react-icons/fa6'
 
 import { 
@@ -63,7 +65,11 @@ import {
   SiPostman,
   SiPycharm,
   SiAndroidstudio,
-  SiShopify
+  SiShopify,
+  SiKotlin,
+  SiDart,
+  SiFlutter,
+  SiSqlite
 } from 'react-icons/si'
 
 // ---------------------
@@ -90,14 +96,15 @@ export const UserIcon = HiUser
 export const EyeIcon = HiEye
 export const HeartIcon = HiHeart
 export const HeartOutlineIcon = HiOutlineHeart
+export const LocationIcon = HiMapPin
+export const ThumbsUpIcon = HiHandThumbUp
 export const RocketIcon = FaRocket
 export const TrophyIcon = FaTrophy
 export const GlobeIcon = FaGlobe
 export const StarIcon = FaStar
 export const ExternalLinkIcon = FaArrowUpRightFromSquare
 export const FolderIcon = FaFolder
-export const LocationIcon = HiMapPin
-export const ThumbsUpIcon = HiHandThumbUp
+export const JavaIcon = FaJava
 
 // ---------------------
 // Social Icons
@@ -121,20 +128,25 @@ export const getTechIcon = (tech) => {
     'HTML': SiHtml5,
     'CSS': SiCss3,
     'Python': SiPython,
+    'Kotlin': SiKotlin,
+    'Dart': SiDart,
+    'Java': FaJava,
 
     // Frameworks
+    'Node': SiNodedotjs,
     'Laravel': SiLaravel,
     'Composer': SiComposer,
     'React native': SiReact,
     'Liquid (Shopify)': SiShopify,
+    'Flutter': SiFlutter,
 
     // Databases
     'Mysql': SiMysql,
     'Postgres': SiPostgresql,
     'Firebase': SiFirebase,
+    'SQLite': SiSqlite,
 
     // Tools
-    'Node': SiNodedotjs,
     'Github': SiGithub,
     'Git': SiGithub,
     'VsCode': HiComputerDesktop,           // fallback

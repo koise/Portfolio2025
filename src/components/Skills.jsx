@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import './Skills.scss'
 import { CodeIcon, SettingsIcon, DatabaseIcon, ToolIcon, getTechIcon } from './Icons'
 
 function Skills() {
+  const [hoveredSkill, setHoveredSkill] = useState(null)
+
   const techStack = [
     {
       title: 'Languages',
@@ -11,12 +14,12 @@ function Skills() {
     {
       title: 'Frameworks',
       icon: SettingsIcon,
-      skills: ['Laravel', 'React native', 'Liquid (Shopify)']
+      skills: ['Laravel', 'React native', 'Liquid (Shopify)', 'Flutter']
     },
     {
       title: 'Database',
       icon: DatabaseIcon,
-      skills: ['Mysql', 'Postgres', 'Firebase']
+      skills: ['Mysql', 'Postgres', 'Firebase', 'SQLite']
     },
     {
       title: 'Tools',
@@ -43,10 +46,19 @@ function Skills() {
               <div className="tech-tags">
                 {category.skills.map((skill, skillIndex) => {
                   const TechIconComponent = getTechIcon(skill)
+                  const skillKey = `${index}-${skillIndex}`
+                  const isHovered = hoveredSkill === skillKey
                   return (
-                    <span key={skillIndex} className="tech-tag">
+                    <span
+                      key={skillIndex}
+                      className="tech-tag"
+                      data-tooltip={skill}
+                      onMouseEnter={() => setHoveredSkill(skillKey)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                    >
                       <TechIconComponent className="tech-icon" />
                       <span className="tech-name">{skill}</span>
+                      {isHovered && <span className="tooltip">{skill}</span>}
                     </span>
                   )
                 })}
