@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
 import { SunIcon, MoonIcon, VerifiedIcon, MessageIcon, LocationIcon } from './Icons'
 import heroImage from '../assets/hero.jpg'
+import heroHoverImage from '../assets/hero-hover.jpg'
 import resumePdf from '../assets/resume/EDADES-CV.pdf'
 import { getStats, subscribeToStats, incrementViews } from '../config/firebase'
 import './Hero.scss'
@@ -71,14 +72,22 @@ function Hero() {
               <div className={`avatar-img ${isHoveringImage ? 'hovered' : ''}`}>
                 <img 
                   src={heroImage} 
-                  alt="Bart Jason Edades" 
+                  alt="Bart Jason Edades"
+                  className="avatar-image-default"
                   onError={(e) => {
                     e.target.style.display = 'none'
                     e.target.nextSibling.style.display = 'flex'
                   }}
                 />
+                <img 
+                  src={heroHoverImage} 
+                  alt="Bart Jason Edades"
+                  className="avatar-image-hover"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                  }}
+                />
                 <div className="avatar-fallback" style={{ display: 'none' }}>BE</div>
-                <div className="avatar-overlay">🎨</div>
               </div>
               <div className="status-dot"></div>
             </div>
@@ -86,7 +95,8 @@ function Hero() {
             <div className="header-info">
               <div className="name-section">
                 <h1>koisbart <VerifiedIcon className="verified" /></h1>
-                <p>Bart Jason Edades</p>
+                <p className="full-name">Bart Jason Edades</p>
+                <p className="tagline">Full stack developer</p>
               </div>
               
               <button 
@@ -97,6 +107,14 @@ function Hero() {
                 {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
               </button>
             </div>
+          </div>
+
+          {/* Bio Section */}
+          <div className="bio-section">
+            <p className="bio">
+            Full-stack Web and Mobile developer crafting scalable web experiences with React and Laravel.
+            Curious by nature, always building, always improving.
+            </p>
           </div>
 
           {/* Ultra Compact Stats */}
