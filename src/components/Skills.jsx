@@ -6,7 +6,7 @@ function Skills() {
     {
       title: 'Languages',
       icon: CodeIcon,
-      skills: ['C', 'C++', 'C#', 'Asp.Net', 'PHP', 'JS', 'HTML', 'CSS', 'Python']
+      skills: ['C', 'C++', 'C#', 'Asp.Net', 'PHP', 'JS', 'HTML', 'CSS', 'Python', 'Kotlin', 'Dart', 'Java',]
     },
     {
       title: 'Frameworks',
