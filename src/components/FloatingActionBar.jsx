@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
 import { HeartIcon, HeartOutlineIcon, SunIcon, MoonIcon } from './Icons'
+import { incrementLikes, incrementViews, getStats, subscribeToStats } from '../config/firebase'
 import './FloatingActionBar.scss'
 
 function FloatingActionBar() {
@@ -19,58 +20,65 @@ function FloatingActionBar() {
     checkMobile()
     window.addEventListener('resize', checkMobile)
 
-    // Load likes from localStorage
-    const storedLikes = localStorage.getItem('portfolioLikes')
-    if (storedLikes) {
-      setLikes(parseInt(storedLikes))
-    }
-
-    // Handle visits - increment on each page load
-    const storedVisits = localStorage.getItem('portfolioVisits')
-    const sessionKey = 'portfolioVisitSession'
-    const currentSession = sessionStorage.getItem(sessionKey)
-    
-    if (!currentSession) {
-      // New session - increment visits
-      const newVisits = storedVisits ? parseInt(storedVisits) + 1 : 1
-      setVisits(newVisits)
-      localStorage.setItem('portfolioVisits', newVisits.toString())
-      sessionStorage.setItem(sessionKey, 'true')
-      // Notify Hero component
-      window.dispatchEvent(new CustomEvent('portfolioStatsUpdate'))
-    } else {
-      // Same session - just display current count
-      setVisits(storedVisits ? parseInt(storedVisits) : 0)
-    }
-
-    // Check if user has already liked
+    // Load persisted 'hasLiked' from localStorage (device-specific)
     const liked = localStorage.getItem('portfolioHasLiked') === 'true'
     setHasLiked(liked)
 
+    // Subscribe to Firestore stats updates
+    let unsubscribeStats
+    try {
+      // initial load
+      getStats().then((data) => {
+        if (data) {
+          setLikes(data.likes || 0)
+          setVisits(data.views || 0)
+        }
+      })
+
+      // realtime updates
+      subscribeToStats((data) => {
+        setLikes(data.likes || 0)
+        setVisits(data.views || 0)
+      }).then((unsub) => {
+        unsubscribeStats = unsub
+      }).catch((err) => console.error('subscribeToStats failed', err))
+    } catch (err) {
+      console.error('Firestore stats subscribe failed', err)
+    }
+
+    // Handle visits - increment on each page load (once per session)
+    const sessionKey = 'portfolioVisitSession'
+    const currentSession = sessionStorage.getItem(sessionKey)
+    if (!currentSession) {
+      // New session - increment visits in Firestore
+      incrementViews().catch((err) => console.error('incrementViews failed', err))
+      sessionStorage.setItem(sessionKey, 'true')
+    }
+
     return () => {
       window.removeEventListener('resize', checkMobile)
+      // Unsubscribe snapshot if provided by subscribeToStats
+      if (typeof unsubscribeStats === 'function') unsubscribeStats()
     }
   }, [])
 
   const handleLike = () => {
     if (hasLiked) {
-      // Unlike
+      // Unlike (local optimistic update)
       const newLikes = Math.max(0, likes - 1)
       setLikes(newLikes)
       setHasLiked(false)
-      localStorage.setItem('portfolioLikes', newLikes.toString())
       localStorage.setItem('portfolioHasLiked', 'false')
-      // Notify Hero component
-      window.dispatchEvent(new CustomEvent('portfolioStatsUpdate'))
+      // Update Firestore
+      incrementLikes(-1).catch((err) => console.error('decrement like failed', err))
     } else {
-      // Like
+      // Like (local optimistic update)
       const newLikes = likes + 1
       setLikes(newLikes)
       setHasLiked(true)
-      localStorage.setItem('portfolioLikes', newLikes.toString())
       localStorage.setItem('portfolioHasLiked', 'true')
-      // Notify Hero component
-      window.dispatchEvent(new CustomEvent('portfolioStatsUpdate'))
+      // Update Firestore
+      incrementLikes(1).catch((err) => console.error('increment like failed', err))
     }
   }
 

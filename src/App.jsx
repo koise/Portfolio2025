@@ -11,7 +11,7 @@ import './App.scss'
 function App() {
   return (
     <ThemeProvider>
-      <div className="app">
+      <div className="ppa">
         <main>
           <Hero />
           <div className="main-content">

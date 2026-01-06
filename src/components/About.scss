@@ -1,0 +1,41 @@
+.about {
+  padding: 4rem 0;
+
+  .section-title {
+    margin-bottom: 0.25rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 2rem;
+    color: var(--muted);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .about-card {
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+
+    h3 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--card-hover-shadow);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

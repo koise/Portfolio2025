@@ -2,6 +2,15 @@ import { useState, useRef, useEffect } from 'react'
 import './Certifications.scss'
 import { TrophyIcon, StarIcon, ExternalLinkIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons'
 
+// Certificate assets (images & PDFs) - update titles/descriptions as you like
+import cert1 from '../assets/certificates/cert1.jpg'
+import cert2 from '../assets/certificates/cert2.png' // Code the Laravel Way (featured)
+import cert3 from '../assets/certificates/cert3.png'
+import cert4 from '../assets/certificates/cert4.png'
+import cert5 from '../assets/certificates/cert5.png'
+import cert6 from '../assets/certificates/cert6.jpg'
+import cert7 from '../assets/certificates/cert7.png' // CCNA (featured)
+
 function Certifications() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
@@ -15,31 +24,69 @@ function Certifications() {
     }
   }, [])
 
+  // You can freely edit the title and description fields below.
+  // Only the Laravel and CCNA certificates are marked as featured.
   const certifications = [
     {
       id: 1,
-      title: 'Friend of the Frame: Community Kickoff 2024',
-      description: 'Participated in The Frame: Breaking into UI/UX Design.',
-      image: 'cert-placeholder-1',
-      link: '#',
-      linkText: 'View Certificate',
+      title: 'CCNA: Switching, Routing, and Wireless Essentials',
+      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
+      image: cert7,
+      link: cert7,
+      linkText: 'View CCNA Certificate',
       featured: true
     },
     {
       id: 2,
-      title: 'Penetration Testing and Red Team Training',
-      description: 'Completed the Penetration Testing and Red Team Training conducted by Streetlevel Ministries.',
-      image: 'cert-placeholder-2',
-      link: '#',
+      title: 'Code the Laravel Way (Guest Speaker)',
+      description: 'It covers the fundamentals of Laravel, the basics of Laravel, and the basics of Laravel. It also covers the basics of Laravel and the different types of Laravel.',
+      image: cert4,
+      link: cert4,
+      linkText: 'View Laravel Certificate',
+      featured: true
+    },
+    {
+      id: 5,
+      title: 'The Digital Fabric: AI Imperatives and Risk, Quantum Computing, and Automated Business and Multimedia Augmentation',
+      description: 'It covers the fundamentals of AI, the basics of AI, and the basics of AI. It also covers the basics of AI and the different types of AI.',
+      image: cert5,
+      link: cert5,
       linkText: 'View Certificate',
       featured: true
     },
     {
+      id: 4,
+      title: 'Introduction of SQL',
+      description: 'It covers the fundamentals of SQL, the basics of SQL, and the basics of SQL. It also covers the basics of SQL and the different types of SQL.',
+      image: cert2,
+      link: cert2,
+      linkText: 'View Certificate',
+      featured: false
+    },
+    {
       id: 3,
-      title: 'Certification Name 3',
-      description: 'A brief description of your certification.',
-      image: 'cert-placeholder-3',
-      link: '#',
+      title: 'Infrastructure and Cloud Computing',
+      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
+      image: cert1,
+      link: cert1,
+      linkText: 'View Certificate',
+      featured: false
+    },
+    {
+      id: 6,
+      title: 'Mastering The Mobile App Journey:Development to Deployment',
+      description: 'the basics of mobile app development, and the basics of mobile app development. It also covers the basics of mobile app development and the different types of mobile app development.',
+      image: cert6,
+      link: cert6,
+      linkText: 'View Certificate',
+      featured: false
+    },
+    {
+      id: 3,
+      title: 'Typography Trends in 2025: Shaping the Future of Design and User Experience',
+      description: 'The basics of typography, and the basics of typography. It also covers the basics of typography and the different types of typography.',
+      image: cert3,
+      link: cert3,
       linkText: 'View Certificate',
       featured: false
     }
@@ -82,9 +129,19 @@ function Certifications() {
                   </div>
                   <div className="cert-laptop">
                     <div className="laptop-screen">
-                      <div className="placeholder-image">
-                        <span>{cert.image}</span>
-                      </div>
+                      {cert.image ? (
+                        cert.link?.toLowerCase().endsWith('.pdf') ? (
+                          <div className="placeholder-image pdf">
+                            <span>PDF Preview</span>
+                          </div>
+                        ) : (
+                          <img src={cert.image} alt={cert.title} className="cert-image" />
+                        )
+                      ) : (
+                        <div className="placeholder-image">
+                          <span>Certificate preview</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="cert-content">

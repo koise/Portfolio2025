@@ -11,6 +11,7 @@ A modern, responsive portfolio website built with React, featuring dark/light mo
 - ⚡ **Fast Performance** - Built with Vite for optimal performance
 - 🎯 **Placeholder Content** - Ready-to-customize sections with placeholder content
 - 💅 **SASS/SCSS** - Organized styles with variables, mixins, and modular structure
+- 🔥 **Firebase Integration** - View and like counters powered by Firebase Firestore.
 
 ## Getting Started
 
@@ -109,6 +110,8 @@ portfolio-2025/
 │   ├── App.scss
 │   ├── main.jsx         # Entry point
 │   └── index.scss       # Global styles
+├── firebase.json
+├── .firebaserc
 ├── index.html
 ├── package.json
 └── vite.config.js
@@ -120,6 +123,7 @@ portfolio-2025/
 - Vite
 - SASS/SCSS (with variables, mixins, and modular structure)
 - CSS Variables (for dynamic theming)
+- Firebase
 
 ## License
 

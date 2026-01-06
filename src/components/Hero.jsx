@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
 import { SunIcon, MoonIcon, VerifiedIcon, MessageIcon, LocationIcon } from './Icons'
 import heroImage from '../assets/hero.jpg'
+import resumePdf from '../assets/resume/EDADES-CV.pdf'
+import { getStats, subscribeToStats, incrementViews } from '../config/firebase'
 import './Hero.scss'
 
 function Hero() {
@@ -12,50 +14,46 @@ function Hero() {
   const [isHoveringImage, setIsHoveringImage] = useState(false)
 
   useEffect(() => {
-    const updateStats = () => {
-      const storedVisits = localStorage.getItem('portfolioVisits')
-      if (storedVisits) {
-        setPageVisits(parseInt(storedVisits))
-      } else {
-        setPageVisits(0)
-      }
-
-      const storedLikes = localStorage.getItem('portfolioLikes')
-      if (storedLikes) {
-        setLikes(parseInt(storedLikes))
-      } else {
-        setLikes(0)
-      }
-
-      const storedProjects = localStorage.getItem('portfolioProjects')
-      if (storedProjects) {
-        setProjects(parseInt(storedProjects))
-      } else {
-        setProjects(0)
-      }
+    // Load projects count from localStorage (unchanged)
+    const storedProjects = localStorage.getItem('portfolioProjects')
+    if (storedProjects) {
+      setProjects(parseInt(storedProjects))
+    } else {
+      setProjects(0)
     }
 
-    updateStats()
+    // Subscribe to Firestore stats so Likes and Views are kept in sync
+    let unsubscribe
+    getStats().then((data) => {
+      if (data) {
+        setPageVisits(data.views || 0)
+        setLikes(data.likes || 0)
+      } 
+    }).catch((err) => console.error('getStats failed', err))
 
-    const handleStorageUpdate = () => {
-      updateStats()
-    }
+    subscribeToStats((data) => {
+      setPageVisits(data.views || 0)
+      setLikes(data.likes || 0)
+    }).then((unsub) => {
+      unsubscribe = unsub
+    }).catch((err) => console.error('subscribeToStats failed', err))
 
+    // Count a view on initial load
+    incrementViews().catch((err) => console.error('incrementViews failed', err))
+
+    // Keep backwards-compatible event listener for other parts of app if needed
     const handleStorageChange = (e) => {
-      if (e.key === 'portfolioProjects' || e.key === 'portfolioLikes' || e.key === 'portfolioVisits') {
-        updateStats()
+      if (e.key === 'portfolioProjects') {
+        const stored = localStorage.getItem('portfolioProjects')
+        setProjects(stored ? parseInt(stored) : 0)
       }
     }
 
-    window.addEventListener('portfolioStatsUpdate', handleStorageUpdate)
     window.addEventListener('storage', handleStorageChange)
 
-    const interval = setInterval(updateStats, 1000)
-
     return () => {
-      window.removeEventListener('portfolioStatsUpdate', handleStorageUpdate)
       window.removeEventListener('storage', handleStorageChange)
-      clearInterval(interval)
+      if (typeof unsubscribe === 'function') unsubscribe()
     }
   }, [])
 
@@ -117,24 +115,24 @@ function Hero() {
             </div>
           </div>
 
-          {/* Minimal Bio */}
-          <p className="bio">
-           wawa
-          </p>
-
           <div className="location">
             <LocationIcon />
             <span>Antipolo City, Rizal, PH</span>
           </div>
-
+          
           {/* Compact Actions */}
           <div className="actions">
             <button className="btn-primary">
-              Message
+              Message me on Facebook
             </button>
-            <button className="btn-secondary">
-              Email
-            </button>
+            <a
+              href={resumePdf}
+              className="btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download CV (PDF)
+            </a>
           </div>
         </div>
       </div>

@@ -30,7 +30,33 @@
 .contact-content {
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
+  gap: $spacing-md;
+}
+
+.download-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-lg;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  width: fit-content;
+  box-shadow: 0 8px 20px var(--shadow);
+  transition: all $transition-base;
+
+  &:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px var(--shadow);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px var(--shadow);
+  }
 }
 
 .social-links-grid {

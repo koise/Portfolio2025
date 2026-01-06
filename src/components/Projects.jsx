@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import './Projects.scss'
-import { FolderIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons'
-import project1 from '../assets/Project 1.png'
-import project2 from '../assets/Project 2.png'
-import project3 from '../assets/Project 3.png'
-import project4 from '../assets/Project 4.png'
-import project5 from '../assets/Project 5.png'
-import project6 from '../assets/Project 6.png'
-import project7 from '../assets/Project 7.png'
+import { FolderIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon, ThumbsUpIcon } from './Icons'
+import project1 from '../assets/projects/Project 1.png'
+import project2 from '../assets/projects/Project 2.png'
+import project3 from '../assets/projects/Project 3.png'
+import project4 from '../assets/projects/Project 4.png'
+import project5 from '../assets/projects/Project 5.png'
+import project6 from '../assets/projects/Project 6.png'
+import project7 from '../assets/projects/Project 7.png'
+import { incrementLikes } from '../config/firebase'
 
 function Projects() {
   const [projectsCount, setProjectsCount] = useState(0)
@@ -161,6 +162,17 @@ const projects = [
                   <div className="project-details">
                     <div className="details-header">
                       <h3 className="project-title">{project.title}</h3>
+                      <button
+                        className="like-button"
+                        onClick={() => {
+                          // Increment global likes counter in Firestore
+                          incrementLikes(1).catch((err) => {
+                            console.error('Failed to increment likes', err)
+                          })
+                        }}
+                      >
+                        <ThumbsUpIcon />
+                      </button>
                     </div>
                     
                     <p className="project-description">{project.description}</p>
