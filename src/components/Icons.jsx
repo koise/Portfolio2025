@@ -2,7 +2,7 @@
 // Re-export commonly used icons from react-icons
 // All icon exports are available for use across components
 
-import { 
+import {
   HiEnvelope,
   HiChatBubbleLeftRight,
   HiSun,
@@ -25,7 +25,8 @@ import {
   HiHeart,
   HiOutlineHeart,
   HiMapPin,
-  HiHandThumbUp
+  HiHandThumbUp,
+  HiDevicePhoneMobile
 } from 'react-icons/hi2'
 
 import { 
@@ -77,6 +78,7 @@ import {
 // ---------------------
 export const EmailIcon = HiEnvelope
 export const MessageIcon = HiChatBubbleLeftRight
+export const PhoneIcon = HiDevicePhoneMobile
 export const SunIcon = HiSun
 export const MoonIcon = HiMoon
 export const VerifiedIcon = HiCheckBadge

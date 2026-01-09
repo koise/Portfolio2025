@@ -10,7 +10,7 @@ function Contact() {
       </h2>
       <div className="contact-content">
         <div className="social-links-grid">
-          <a href="#" className="social-link-card" aria-label="GitHub">
+          <a href="https://github.com/koise" className="social-link-card" aria-label="GitHub">
             <GithubIcon className="social-icon" />
             <span className="social-text">Follow me on Github</span>
           </a>
@@ -18,7 +18,7 @@ function Contact() {
             <LinkedInIcon className="social-icon" />
             <span className="social-text">Connect on LinkedIn</span>
           </a>
-          <a href="#" className="social-link-card" aria-label="Facebook">
+          <a href="https://www.facebook.com/k4hel.1/" className="social-link-card" aria-label="Facebook">
             <FacebookIcon className="social-icon" />
             <span className="social-text">Add me on Facebook</span>
           </a>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
-import { SunIcon, MoonIcon, VerifiedIcon, MessageIcon, LocationIcon } from './Icons'
+import { SunIcon, MoonIcon, VerifiedIcon, MessageIcon, LocationIcon, PhoneIcon, EmailIcon } from './Icons'
 import heroImage from '../assets/hero.jpg'
 import heroHoverImage from '../assets/hero-hover.jpg'
 import resumePdf from '../assets/resume/EDADES-CV.pdf'
@@ -132,16 +132,28 @@ function Hero() {
               <span>Views</span>
             </div>
           </div>
-
+        
+        <div className="extraDetails">
           <div className="location">
             <LocationIcon />
             <span>Antipolo City, Rizal, PH</span>
           </div>
           
+          <div className="location">
+            <PhoneIcon/>
+            <span>+639504893347</span>
+          </div>
+
+          <div className="location">
+            <EmailIcon/>
+            <span>wbartjason@gmail.com</span>
+          </div>
+        </div>
+          
           {/* Compact Actions */}
           <div className="actions">
             <button className="btn-primary">
-              Message me on Facebook
+              <a href="https://www.facebook.com/k4hel.1/">Message me on Facebook</a>
             </button>
             <a
               href={resumePdf}
