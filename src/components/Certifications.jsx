@@ -30,7 +30,7 @@ function Certifications() {
     {
       id: 1,
       title: 'CCNA: Switching, Routing, and Wireless Essentials',
-      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
+      description: ,
       image: cert7,
       link: cert7,
       linkText: 'View CCNA Certificate',
@@ -39,7 +39,7 @@ function Certifications() {
     {
       id: 2,
       title: 'Code the Laravel Way (Guest Speaker)',
-      description: 'It covers the fundamentals of Laravel, the basics of Laravel, and the basics of Laravel. It also covers the basics of Laravel and the different types of Laravel.',
+      description: NULL,
       image: cert4,
       link: cert4,
       linkText: 'View Laravel Certificate',
@@ -48,7 +48,7 @@ function Certifications() {
     {
       id: 5,
       title: 'The Digital Fabric: AI Imperatives and Risk, Quantum Computing, and Automated Business and Multimedia Augmentation',
-      description: 'It covers the fundamentals of AI, the basics of AI, and the basics of AI. It also covers the basics of AI and the different types of AI.',
+      description: NULL,
       image: cert5,
       link: cert5,
       linkText: 'View Certificate',
@@ -57,8 +57,7 @@ function Certifications() {
     {
       id: 4,
       title: 'Introduction of SQL',
-      description: 'It covers the fundamentals of SQL, the basics of SQL, and the basics of SQL. It also covers the basics of SQL and the different types of SQL.',
-      image: cert2,
+      description: NULL,
       link: cert2,
       linkText: 'View Certificate',
       featured: false
@@ -66,7 +65,7 @@ function Certifications() {
     {
       id: 3,
       title: 'Infrastructure and Cloud Computing',
-      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
+      description: NULL,
       image: cert1,
       link: cert1,
       linkText: 'View Certificate',
@@ -75,7 +74,7 @@ function Certifications() {
     {
       id: 6,
       title: 'Mastering The Mobile App Journey:Development to Deployment',
-      description: 'the basics of mobile app development, and the basics of mobile app development. It also covers the basics of mobile app development and the different types of mobile app development.',
+      description: NULL,
       image: cert6,
       link: cert6,
       linkText: 'View Certificate',
@@ -84,7 +83,7 @@ function Certifications() {
     {
       id: 7,
       title: 'Typography Trends in 2025: Shaping the Future of Design and User Experience',
-      description: 'The basics of typography, and the basics of typography. It also covers the basics of typography and the different types of typography.',
+      description: NULL,
       image: cert3,
       link: cert3,
       linkText: 'View Certificate',
