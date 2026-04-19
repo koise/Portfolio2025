@@ -1,96 +1,112 @@
 import { useState, useRef, useEffect } from 'react'
 import './Certifications.scss'
-import { TrophyIcon, StarIcon, ExternalLinkIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons'
+import {
+  TrophyIcon,
+  StarIcon,
+  ExternalLinkIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CarouselIcon,
+  GridIcon,
+  TableIcon
+} from './Icons'
 
-// Certificate assets (images & PDFs) - update titles/descriptions as you like
+// Certificate assets
 import cert1 from '../assets/certificates/cert1.jpg'
-import cert2 from '../assets/certificates/cert2.png' // Code the Laravel Way (featured)
+import cert2 from '../assets/certificates/cert2.png'
 import cert3 from '../assets/certificates/cert3.png'
 import cert4 from '../assets/certificates/cert4.png'
 import cert5 from '../assets/certificates/cert5.png'
 import cert6 from '../assets/certificates/cert6.jpg'
-import cert7 from '../assets/certificates/cert7.png' // CCNA (featured)
+import cert7 from '../assets/certificates/cert7.png'
+import cert8 from '../assets/certificates/cert8.png'
+
+// ✅ FINAL: 8 ITEMS TOTAL (with proper structure)
+export const certifications = [
+  {
+    id: 1,
+    title: 'CCNA: Switching, Routing, and Wireless Essentials',
+    image: cert7,
+    link: cert7,
+    linkText: 'View Certificate',
+    featured: true,
+    tags: ['Networking', 'Cisco', 'Infrastructure'],
+    type: 'cert'
+  },
+  {
+    id: 2,
+    title: 'WordPress Website Development Training',
+    image: cert8,
+    link: cert8,
+    linkText: 'View Certificate',
+    featured: true,
+    tags: ['Web Dev', 'WordPress'],
+    type: 'cert'
+  },
+  {
+    id: 8,
+    title: 'Guest Speaker – Laravel Web Development',
+    image: cert4,
+    link: cert4,
+    linkText: 'View Details',
+    featured: true,
+    tags: ['Laravel', 'PHP', 'Backend'],
+    type: 'speaker'
+  },
+  {
+    id: 3,
+    title: 'AI, Quantum Computing & Automation',
+    image: cert5,
+    link: cert5,
+    linkText: 'View Certificate',
+    featured: true,
+    tags: ['AI', 'Automation'],
+    type: 'cert'
+  },
+  {
+    id: 4,
+    title: 'Introduction to SQL',
+    image: cert2,
+    link: cert2,
+    linkText: 'View Certificate',
+    featured: false,
+    tags: ['Database', 'SQL'],
+    type: 'cert'
+  },
+  {
+    id: 5,
+    title: 'Infrastructure and Cloud Computing',
+    image: cert1,
+    link: cert1,
+    linkText: 'View Certificate',
+    featured: false,
+    tags: ['Cloud', 'Networking'],
+    type: 'cert'
+  },
+  {
+    id: 6,
+    title: 'Mobile App Development Journey',
+    image: cert6,
+    link: cert6,
+    linkText: 'View Certificate',
+    featured: false,
+    tags: ['Mobile Dev', 'UI/UX'],
+    type: 'cert'
+  },
+]
 
 function Certifications() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
+  const [viewMode, setViewMode] = useState('carousel')
   const scrollContainerRef = useRef(null)
 
   useEffect(() => {
-    // Check initial scroll state
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth } = scrollContainerRef.current
       setCanScrollRight(scrollWidth > clientWidth)
     }
   }, [])
-
-  // You can freely edit the title and description fields below.
-  // Only the Laravel and CCNA certificates are marked as featured.
-  const certifications = [
-    {
-      id: 1,
-      title: 'CCNA: Switching, Routing, and Wireless Essentials',
-      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
-      image: cert7,
-      link: cert7,
-      linkText: 'View CCNA Certificate',
-      featured: true
-    },
-    {
-      id: 2,
-      title: 'Code the Laravel Way (Guest Speaker)',
-      description: 'It covers the fundamentals of Laravel, the basics of Laravel, and the basics of Laravel. It also covers the basics of Laravel and the different types of Laravel.',
-      image: cert4,
-      link: cert4,
-      linkText: 'View Laravel Certificate',
-      featured: true
-    },
-    {
-      id: 5,
-      title: 'The Digital Fabric: AI Imperatives and Risk, Quantum Computing, and Automated Business and Multimedia Augmentation',
-      description: 'It covers the fundamentals of AI, the basics of AI, and the basics of AI. It also covers the basics of AI and the different types of AI.',
-      image: cert5,
-      link: cert5,
-      linkText: 'View Certificate',
-      featured: true
-    },
-    {
-      id: 4,
-      title: 'Introduction of SQL',
-      description: 'It covers the fundamentals of SQL, the basics of SQL, and the basics of SQL. It also covers the basics of SQL and the different types of SQL.',
-      image: cert2,
-      link: cert2,
-      linkText: 'View Certificate',
-      featured: false
-    },
-    {
-      id: 3,
-      title: 'Infrastructure and Cloud Computing',
-      description: 'It covers the fundamentals of networking, virtualization, and cloud services. It also covers the basics of cloud computing and the different types of cloud services.',
-      image: cert1,
-      link: cert1,
-      linkText: 'View Certificate',
-      featured: false
-    },
-    {
-      id: 6,
-      title: 'Mastering The Mobile App Journey:Development to Deployment',
-      description: 'the basics of mobile app development, and the basics of mobile app development. It also covers the basics of mobile app development and the different types of mobile app development.',
-      image: cert6,
-      link: cert6,
-      linkText: 'View Certificate',
-      featured: false
-    },
-    {
-      id: 7,
-      title: 'Typography Trends in 2025: Shaping the Future of Design and User Experience',
-      description: 'The basics of typography, and the basics of typography. It also covers the basics of typography and the different types of typography.',
-      image: cert3,
-      link: cert3,
-      linkText: 'View Certificate',
-      featured: false
-    }
-  ]
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -103,7 +119,10 @@ function Certifications() {
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const scrollAmount = 500
-      const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
+      const newScrollLeft =
+        scrollContainerRef.current.scrollLeft +
+        (direction === 'left' ? -scrollAmount : scrollAmount)
+
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
@@ -114,58 +133,104 @@ function Certifications() {
   return (
     <section id="certifications" className="certifications">
       <div className="container">
-        <h2 className="section-title">
-          <TrophyIcon className="section-icon" />
-          <span>Certifications</span>
-        </h2>
-        <div className="certifications-wrapper">
-          <div className="certifications-scroll-container" ref={scrollContainerRef} onScroll={handleScroll}>
+        <div className="section-header">
+          <div className="header-top">
+            <h2 className="section-title">
+              <TrophyIcon className="section-icon" />
+              <span>Certifications</span>
+            </h2>
+
+            <div className="header-accent" />
+
+            <div className="view-toggles">
+              <button
+                className={`toggle-btn ${viewMode === 'carousel' ? 'active' : ''}`}
+                onClick={() => setViewMode('carousel')}
+              >
+                <CarouselIcon />
+              </button>
+
+              <button
+                className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+              >
+                <GridIcon />
+              </button>
+
+              <button
+                className={`toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+                onClick={() => setViewMode('table')}
+              >
+                <TableIcon />
+              </button>
+            </div>
+          </div>
+
+          <p className="section-subtitle">
+            Certifications, Awards, and Speaking Engagements
+          </p>
+        </div>
+
+        <div className={`certifications-wrapper view-${viewMode}`}>
+          <div
+            className="certifications-scroll-container"
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+          >
             <div className="certifications-scroll">
-              {certifications.map((cert) => (
-                <div key={cert.id} className="cert-card">
-                  <div className="cert-header">
-                    <h3 className="cert-title">{cert.title}</h3>
-                    {cert.featured && <StarIcon className="star-icon" />}
-                  </div>
-                  <div className="cert-laptop">
-                    <div className="laptop-screen">
-                      {cert.image ? (
-                        cert.link?.toLowerCase().endsWith('.pdf') ? (
-                          <div className="placeholder-image pdf">
-                            <span>PDF Preview</span>
-                          </div>
-                        ) : (
-                          <img src={cert.image} alt={cert.title} className="cert-image" />
-                        )
-                      ) : (
-                        <div className="placeholder-image">
-                          <span>Certificate preview</span>
-                        </div>
-                      )}
+              {certifications.map((cert, index) => (
+                <div 
+                  key={cert.id} 
+                  className="cert-card"
+                  style={{
+                    '--cert-color': cert.color || 'var(--accent)',
+                    '--animation-order': index
+                  }}
+                >
+
+                  <div className="cert-preview">
+                    <div className="preview-screen">
+                      <img src={cert.image} alt={cert.title} className="cert-image" />
                     </div>
                   </div>
-                  <div className="cert-content">
-                    {/*
-                    <p className="cert-description">{cert.description}</p>
-                    <p>Another line</p>
-                    */}
-                    <a href={cert.link} className="cert-link" target="_blank" rel="noopener noreferrer">
-                      {cert.linkText} <ExternalLinkIcon className="link-icon" />
-                    </a>
+
+                  <div className="cert-details">
+                    <div className="cert-header">
+                      <h3 className="cert-title">{cert.title}</h3>
+                      {cert.featured && <span className="featured-label">FEATURED</span>}
+                    </div>
+
+                    <div className="cert-tech">
+                      {cert.tags.map((tag, i) => (
+                        <span key={i} className="tech-badge">{tag}</span>
+                      ))}
+                    </div>
+
+                    <div className="cert-content">
+                      <a
+                        href={cert.link}
+                        className="cert-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {cert.linkText} <ExternalLinkIcon className="link-icon" />
+                      </a>
+                    </div>
                   </div>
+
                 </div>
               ))}
             </div>
           </div>
 
-          {canScrollLeft && (
-            <button className="scroll-button scroll-left" onClick={() => scroll('left')} aria-label="Scroll left">
+          {viewMode === 'carousel' && canScrollLeft && (
+            <button className="scroll-button scroll-left" onClick={() => scroll('left')}>
               <ChevronLeftIcon className="scroll-icon" />
             </button>
           )}
 
-          {canScrollRight && (
-            <button className="scroll-button scroll-right" onClick={() => scroll('right')} aria-label="Scroll right">
+          {viewMode === 'carousel' && canScrollRight && (
+            <button className="scroll-button scroll-right" onClick={() => scroll('right')}>
               <ChevronRightIcon className="scroll-icon" />
             </button>
           )}

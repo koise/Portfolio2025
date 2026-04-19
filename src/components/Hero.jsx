@@ -1,105 +1,54 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
-import { SunIcon, MoonIcon, VerifiedIcon, MessageIcon, LocationIcon, PhoneIcon, EmailIcon } from './Icons'
+import {
+  SunIcon, MoonIcon, VerifiedIcon, LocationIcon, EmailIcon,
+  GithubIcon, LinkedInIcon, FacebookIcon
+} from './Icons'
 import heroImage from '../assets/hero.jpg'
 import heroHoverImage from '../assets/hero-hover.jpg'
 import resumePdf from '../assets/resume/EDADES-CV.pdf'
-import { getStats, subscribeToStats, incrementViews } from '../config/firebase'
 import './Hero.scss'
+
+const TOTAL_CERTIFICATES = 8
+const TOTAL_PROJECTS = 10
+
+const SOCIALS = [
+  {
+    href: 'https://github.com/koise',
+    label: 'GitHub',
+    Icon: GithubIcon,
+    handle: 'koise',
+  },
+  {
+    href: '#',
+    label: 'LinkedIn',
+    Icon: LinkedInIcon,
+    handle: 'bartjasonedades',
+  },
+  {
+    href: 'https://www.facebook.com/k4hel.1/',
+    label: 'Facebook',
+    Icon: FacebookIcon,
+    handle: 'k4hel.1',
+  },
+]
 
 function Hero() {
   const { theme, toggleTheme } = useTheme()
-  const [pageVisits, setPageVisits] = useState(0)
-  const [likes, setLikes] = useState(0)
-  const [projects, setProjects] = useState(0)
   const [isHoveringImage, setIsHoveringImage] = useState(false)
-
-  useEffect(() => {
-    // Load projects count from localStorage (unchanged)
-    const storedProjects = localStorage.getItem('portfolioProjects')
-    if (storedProjects) {
-      setProjects(parseInt(storedProjects))
-    } else {
-      setProjects(0)
-    }
-
-    // Subscribe to Firestore stats so Likes and Views are kept in sync
-    let unsubscribe
-    getStats().then((data) => {
-      if (data) {
-        setPageVisits(data.views || 0)
-        setLikes(data.likes || 0)
-      } 
-    }).catch((err) => console.error('getStats failed', err))
-
-    subscribeToStats((data) => {
-      setPageVisits(data.views || 0)
-      setLikes(data.likes || 0)
-    }).then((unsub) => {
-      unsubscribe = unsub
-    }).catch((err) => console.error('subscribeToStats failed', err))
-
-    // Count a view on initial load
-    incrementViews().catch((err) => console.error('incrementViews failed', err))
-
-    // Keep backwards-compatible event listener for other parts of app if needed
-    const handleStorageChange = (e) => {
-      if (e.key === 'portfolioProjects') {
-        const stored = localStorage.getItem('portfolioProjects')
-        setProjects(stored ? parseInt(stored) : 0)
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      if (typeof unsubscribe === 'function') unsubscribe()
-    }
-  }, [])
 
   return (
     <section id="home" className="hero">
       <div className="container">
         <div className="hero-card">
-          {/* Compact Header */}
-          <div className="hero-header">
-            <div 
-              className="avatar-compact"
-              onMouseEnter={() => setIsHoveringImage(true)}
-              onMouseLeave={() => setIsHoveringImage(false)}
-            >
-              <div className={`avatar-img ${isHoveringImage ? 'hovered' : ''}`}>
-                <img 
-                  src={heroImage} 
-                  alt="Bart Jason Edades"
-                  className="avatar-image-default"
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                    e.target.nextSibling.style.display = 'flex'
-                  }}
-                />
-                <img 
-                  src={heroHoverImage} 
-                  alt="Bart Jason Edades"
-                  className="avatar-image-hover"
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                  }}
-                />
-                <div className="avatar-fallback" style={{ display: 'none' }}>BE</div>
-              </div>
-              <div className="status-dot"></div>
-            </div>
 
-            <div className="header-info">
-              <div className="name-section">
-                <h1>koisbart <VerifiedIcon className="verified" /></h1>
-                <p className="full-name">Bart Jason Edades</p>
-                <p className="tagline">Full stack developer</p>
-              </div>
-              
-              <button 
+          <div className="hero-topbar">
+            <div className="topbar-right">
+              <span className="topbar-status">
+                <span className="status-pulse" />
+                Available for work
+              </span>
+              <button
                 className={`theme-btn ${theme}`}
                 onClick={toggleTheme}
                 aria-label="Toggle theme"
@@ -109,60 +58,85 @@ function Hero() {
             </div>
           </div>
 
-          {/* Bio Section */}
-          <div className="bio-section">
-            <p className="bio">
-            Full-stack Web and Mobile developer crafting scalable web experiences with React and Laravel.
-            Curious by nature, always building, always improving.
-            </p>
-          </div>
+          <div className="hero-body">
 
-          {/* Ultra Compact Stats */}
-          <div className="stats-row">
-            <div className="stat">
-              <strong>{projects}</strong>
-              <span>Projects</span>
-            </div>
-            <div className="stat">
-              <strong>{likes}</strong>
-              <span>Likes</span>
-            </div>
-            <div className="stat">
-              <strong>{pageVisits}</strong>
-              <span>Views</span>
-            </div>
-          </div>
-        
-        <div className="extraDetails">
-          <div className="location">
-            <LocationIcon />
-            <span>Antipolo City, Rizal, PH</span>
-          </div>
-          
-          <div className="location">
-            <PhoneIcon/>
-            <span>+639504893347</span>
-          </div>
+            <div className="hero-profile">
+              <div
+                className="avatar-wrap"
+                onMouseEnter={() => setIsHoveringImage(true)}
+                onMouseLeave={() => setIsHoveringImage(false)}
+              >
+                <div className={`avatar ${isHoveringImage ? 'hovered' : ''}`}>
+                  <img
+                    src={heroImage}
+                    alt="Bart Jason Edades"
+                    className="avatar-default"
+                    onError={e => { e.target.style.display = 'none' }}
+                  />
+                  <img
+                    src={heroHoverImage}
+                    alt="Bart Jason Edades"
+                    className="avatar-hover"
+                    onError={e => { e.target.style.display = 'none' }}
+                  />
+                  <div className="avatar-fallback">BE</div>
+                </div>
+                <span className="online-dot" />
+              </div>
 
-          <div className="location">
-            <EmailIcon/>
-            <span>wbartjason@gmail.com</span>
-          </div>
-        </div>
-          
-          {/* Compact Actions */}
-          <div className="actions">
-            <button className="btn-primary">
-              <a href="https://www.facebook.com/k4hel.1/">Message me on Facebook</a>
-            </button>
-            <a
-              href={resumePdf}
-              className="btn-secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download CV (PDF)
-            </a>
+              <div className="profile-info">
+                <div className="profile-handle">
+                  <span>@koisbart</span>
+                  <VerifiedIcon className="verified-icon" />
+                </div>
+                <h1 className="profile-name">Bart Jason Edades</h1>
+                <p className="profile-bio">
+                  Full-stack Web &amp; Mobile developer crafting scalable experiences
+                  with React and Laravel. Curious by nature, always building.
+                </p>
+                <div className="profile-meta">
+                  <span className="meta-chip">
+                    <LocationIcon className="meta-icon" /> Antipolo City, PH
+                  </span>
+                  <span className="meta-chip">
+                    <EmailIcon className="meta-icon" /> wbartjason@gmail.com
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="hero-stats">
+              <div className="stat-box">
+                <span className="stat-num">{TOTAL_CERTIFICATES}</span>
+                <span className="stat-label">Certifications</span>
+              </div>
+              <div className="stat-box">
+                <span className="stat-num">{TOTAL_PROJECTS}</span>
+                <span className="stat-label">Projects</span>
+              </div>
+            </div>
+
+            <div className="hero-actions">
+              <a href="https://www.facebook.com/k4hel.1/" className="btn-primary" target="_blank" rel="noopener noreferrer">
+                Let's Talk
+              </a>
+              <a href={resumePdf} className="btn-secondary" target="_blank" rel="noopener noreferrer">
+                Download Resume
+              </a>
+            </div>
+
+            <div className="hero-socials">
+              {SOCIALS.map(({ href, label, Icon, handle }) => (
+                <a key={label} href={href} className="social-item" target="_blank" rel="noopener noreferrer" aria-label={label}>
+                  <Icon className="social-icon" />
+                  <div className="social-text">
+                    <span className="social-label">{label}</span>
+                    <span className="social-handle">/{handle}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>

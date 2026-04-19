@@ -14,7 +14,7 @@ function Skills() {
     {
       title: 'Frameworks',
       icon: SettingsIcon,
-      skills: ['Laravel', 'React native', 'Liquid (Shopify)', 'Flutter']
+      skills: ['Laravel', 'React native', 'Liquid (Shopify)', 'Flutter', 'Wordpress']
     },
     {
       title: 'Database',
@@ -30,10 +30,16 @@ function Skills() {
 
   return (
     <section id="skills" className="skills">
-      <h2 className="section-title">
-        <CodeIcon className="section-icon" />
-        <span>Tech Stack</span>
-      </h2>
+      <div className="section-header">
+        <div className="header-top">
+          <h2 className="section-title">
+            <CodeIcon className="section-icon" />
+            <span>Tech Stack</span>
+          </h2>
+          <div className="header-accent" />
+        </div>
+        <p className="section-subtitle">A collection of my technical skills and tools</p>
+      </div>
       <div className="tech-stack">
         {techStack.map((category, index) => {
           const IconComponent = category.icon

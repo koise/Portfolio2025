@@ -1,122 +1,60 @@
 import { useState, useEffect } from 'react'
-import { useTheme } from '../context/ThemeContext'
-import { HeartIcon, HeartOutlineIcon, SunIcon, MoonIcon } from './Icons'
-import { incrementLikes, incrementViews, getStats, subscribeToStats } from '../config/firebase'
 import './FloatingActionBar.scss'
 
 function FloatingActionBar() {
-  const { theme, toggleTheme } = useTheme()
-  const [likes, setLikes] = useState(0)
-  const [visits, setVisits] = useState(0)
-  const [hasLiked, setHasLiked] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
-    // Check if mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
+    const onScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0
 
-    // Load persisted 'hasLiked' from localStorage (device-specific)
-    const liked = localStorage.getItem('portfolioHasLiked') === 'true'
-    setHasLiked(liked)
-
-    // Subscribe to Firestore stats updates
-    let unsubscribeStats
-    try {
-      // initial load
-      getStats().then((data) => {
-        if (data) {
-          setLikes(data.likes || 0)
-          setVisits(data.views || 0)
-        }
-      })
-
-      // realtime updates
-      subscribeToStats((data) => {
-        setLikes(data.likes || 0)
-        setVisits(data.views || 0)
-      }).then((unsub) => {
-        unsubscribeStats = unsub
-      }).catch((err) => console.error('subscribeToStats failed', err))
-    } catch (err) {
-      console.error('Firestore stats subscribe failed', err)
+      setScrollProgress(progress)
+      setVisible(scrollTop > 300)
     }
 
-    // Handle visits - increment on each page load (once per session)
-    const sessionKey = 'portfolioVisitSession'
-    const currentSession = sessionStorage.getItem(sessionKey)
-    if (!currentSession) {
-      // New session - increment visits in Firestore
-      incrementViews().catch((err) => console.error('incrementViews failed', err))
-      sessionStorage.setItem(sessionKey, 'true')
-    }
-
-    return () => {
-      window.removeEventListener('resize', checkMobile)
-      // Unsubscribe snapshot if provided by subscribeToStats
-      if (typeof unsubscribeStats === 'function') unsubscribeStats()
-    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleLike = () => {
-    if (hasLiked) {
-      // Unlike (local optimistic update)
-      const newLikes = Math.max(0, likes - 1)
-      setLikes(newLikes)
-      setHasLiked(false)
-      localStorage.setItem('portfolioHasLiked', 'false')
-      // Update Firestore
-      incrementLikes(-1).catch((err) => console.error('decrement like failed', err))
-    } else {
-      // Like (local optimistic update)
-      const newLikes = likes + 1
-      setLikes(newLikes)
-      setHasLiked(true)
-      localStorage.setItem('portfolioHasLiked', 'true')
-      // Update Firestore
-      incrementLikes(1).catch((err) => console.error('increment like failed', err))
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  return (
-    <div className="floating-action-bar">
-      {/* Theme Toggle - Only on Mobile */}
-      {isMobile && (
-        <div className="fab-item">
-          <button 
-            className="fab-button fab-theme"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? (
-              <SunIcon className="fab-icon" />
-            ) : (
-              <MoonIcon className="fab-icon" />
-            )}
-          </button>
-        </div>
-      )}
+  const radius = 18
+  const circumference = 2 * Math.PI * radius
+  const strokeDashoffset = circumference - scrollProgress * circumference
 
-      {/* Like Button */}
-      <div className="fab-item">
-        <button 
-          className={`fab-button ${hasLiked ? 'liked' : ''}`}
-          onClick={handleLike}
-          aria-label={hasLiked ? 'Unlike' : 'Like'}
-        >
-          {hasLiked ? (
-            <HeartIcon className="fab-icon" />
-          ) : (
-            <HeartOutlineIcon className="fab-icon" />
-          )}
-          <span className="fab-count">{likes}</span>
-        </button>
-      </div>
-    </div>
+  return (
+    <button
+      className={`scroll-top-btn ${visible ? 'visible' : ''}`}
+      onClick={scrollToTop}
+      aria-label="Scroll to top"
+    >
+      <svg className="progress-ring" width="48" height="48" viewBox="0 0 48 48">
+        <circle
+          className="progress-ring__track"
+          cx="24" cy="24" r={radius}
+          fill="none"
+          strokeWidth="2"
+        />
+        <circle
+          className="progress-ring__bar"
+          cx="24" cy="24" r={radius}
+          fill="none"
+          strokeWidth="2"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          strokeLinecap="round"
+          transform="rotate(-90 24 24)"
+        />
+      </svg>
+      <svg className="arrow-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 12V4M4 7l4-4 4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
   )
 }
 

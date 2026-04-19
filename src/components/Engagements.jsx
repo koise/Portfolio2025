@@ -4,8 +4,22 @@ import { BriefcaseIcon, CalendarIcon, MicrophoneIcon, MonitorIcon } from './Icon
 function Engagements() {
   const engagements = [
     {
-      title: 'Shopify Admin Assistant & Web Builder',
+      title: 'Transcend Enterprise Solutions',
       date: 'Current',
+      type: 'work',
+      icon: MonitorIcon,
+      description: 'Junior Web Developer'
+    },
+    {
+      title: 'Transcend Enterprise Solutions Intern',
+      date: '2026',
+      type: 'work',
+      icon: BriefcaseIcon,
+      description: 'Internship role focusing on WordPress and Web Developer, and Software Engineering Intern.'
+    },
+    {
+      title: 'Shopify Admin Assistant & Web Builder',
+      date: '2024',
       type: 'work',
       icon: MonitorIcon,
       description: 'Building intuitive e-commerce interfaces'
@@ -35,16 +49,22 @@ function Engagements() {
 
   return (
     <section id="engagements" className="engagements">
-      <h2 className="section-title">
-        <BriefcaseIcon className="section-icon" />
-        <span>Engagements</span>
-      </h2>
+      <div className="section-header">
+        <div className="header-top">
+          <h2 className="section-title">
+            <BriefcaseIcon className="section-icon" />
+            <span>Engagements</span>
+          </h2>
+          <div className="header-accent" />
+        </div>
+        <p className="section-subtitle">My professional journey, roles, and milestones</p>
+      </div>
       <div className="timeline">
         {engagements.map((engagement, index) => {
           const IconComponent = engagement.icon
           const isCurrent = engagement.date === 'Current'
           const isLast = index === engagements.length - 1
-          
+
           return (
             <div key={index} className={`timeline-item ${isCurrent ? 'active' : ''}`}>
               <div className="timeline-marker">
@@ -53,7 +73,7 @@ function Engagements() {
                 </div>
                 {!isLast && <div className="timeline-line" />}
               </div>
-              
+
               <div className="timeline-content">
                 <div className="content-card">
                   <div className="card-header">

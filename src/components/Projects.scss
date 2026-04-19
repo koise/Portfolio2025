@@ -2,7 +2,7 @@
 @import '../styles/mixins';
 
 .projects {
-  padding: 0;
+  padding: 20px;
   background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   position: relative;
   overflow: hidden;
@@ -14,11 +14,11 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      var(--border) 20%, 
-      var(--border) 80%, 
-      transparent 100%);
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--border) 20%,
+        var(--border) 80%,
+        transparent 100%);
   }
 
   @include mobile {
@@ -36,71 +36,6 @@
   }
 }
 
-// Header Styling
-.section-header {
-  margin-bottom: 2.5rem;
-  animation: fadeInDown 0.6s ease-out;
-
-  @include mobile {
-    margin-bottom: 1.5rem;
-  }
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-  letter-spacing: -0.02em;
-
-  @include mobile {
-    font-size: 1.35rem;
-    gap: 0.5rem;
-  }
-}
-
-.section-icon {
-  width: 24px;
-  height: 24px;
-  color: var(--accent);
-  flex-shrink: 0;
-
-  @include mobile {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-.header-accent {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
-  border-radius: 2px;
-  opacity: 0.5;
-}
-
-.section-subtitle {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.6;
-  padding-left: 30px;
-
-  @include mobile {
-    font-size: 0.85rem;
-    padding-left: 26px;
-  }
-}
 
 // Projects Wrapper
 .projects-wrapper {
@@ -111,6 +46,99 @@
   @include mobile {
     margin: 0;
     padding: 0;
+  }
+
+  &.view-grid {
+    .projects-scroll-container {
+      overflow-x: visible;
+      padding-bottom: 0;
+    }
+
+    .projects-scroll {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .project-card {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
+
+  &.view-table {
+    .projects-scroll-container {
+      overflow-x: visible;
+      padding-bottom: 0;
+    }
+
+    .projects-scroll {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .project-card {
+      min-width: 100%;
+      max-width: 100%;
+      flex-direction: row;
+      align-items: center;
+      padding: 1rem;
+      padding-left: 0;
+      gap: 1.5rem;
+
+      @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+      }
+
+      .project-visual {
+        width: 220px;
+        padding: 0;
+        background: transparent;
+        flex-shrink: 0;
+        margin-left: 1rem;
+
+        @include mobile {
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .laptop-container {
+          .laptop-screen {
+            padding: 0;
+            box-shadow: none;
+            border-radius: 8px;
+            overflow: hidden;
+            background: transparent;
+          }
+
+          .screen-bezel {
+            padding: 0;
+            box-shadow: none;
+          }
+
+          .laptop-base {
+            display: none;
+          }
+        }
+      }
+
+      .project-details {
+        flex: 1;
+        padding: 0;
+      }
+
+      .project-number {
+        display: none;
+      }
+
+      .featured-corner {
+        display: none;
+      }
+    }
   }
 }
 
@@ -198,10 +226,11 @@
     }
   }
 
-  &:hover, &.hovered {
+  &:hover,
+  &.hovered {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-                0 0 0 1px var(--project-color);
+      0 0 0 1px var(--project-color);
     border-color: var(--project-color);
 
     &::before {
@@ -387,11 +416,11 @@
 .laptop-keyboard {
   width: 70%;
   height: 4px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 255, 255, 0.03) 20%,
-    rgba(255, 255, 255, 0.03) 80%,
-    transparent 100%);
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.03) 20%,
+      rgba(255, 255, 255, 0.03) 80%,
+      transparent 100%);
   border-radius: 1px;
 
   @include mobile {
@@ -735,6 +764,7 @@
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -746,6 +776,7 @@
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -757,6 +788,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -764,10 +796,13 @@
 }
 
 @keyframes twinkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.7;
     transform: scale(0.9);

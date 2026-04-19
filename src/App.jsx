@@ -17,7 +17,7 @@ function App() {
           <div className="main-content">
             <div className="left-column">
               <Engagements />
-              <Contact />
+              {/* <Contact /> */}
             </div>
             <div className="right-column">
               <Skills />

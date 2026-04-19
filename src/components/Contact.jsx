@@ -4,10 +4,16 @@ import { GithubIcon, LinkedInIcon, FacebookIcon, GlobeIcon } from './Icons'
 function Contact() {
   return (
     <section id="contact" className="contact">
-      <h2 className="section-title">
-        <GlobeIcon className="section-icon" />
-        <span>Connect with me</span>
-      </h2>
+      <div className="section-header">
+        <div className="header-top">
+          <h2 className="section-title">
+            <GlobeIcon className="section-icon" />
+            <span>Connect with me</span>
+          </h2>
+          <div className="header-accent" />
+        </div>
+        <p className="section-subtitle">Reach out online and let's start a conversation</p>
+      </div>
       <div className="contact-content">
         <div className="social-links-grid">
           <a href="https://github.com/koise" className="social-link-card" aria-label="GitHub">

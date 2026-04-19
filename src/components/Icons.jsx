@@ -26,7 +26,10 @@ import {
   HiOutlineHeart,
   HiMapPin,
   HiHandThumbUp,
-  HiDevicePhoneMobile
+  HiDevicePhoneMobile,
+  HiSquares2X2,
+  HiTableCells,
+  HiViewColumns
 } from 'react-icons/hi2'
 
 import { 
@@ -70,7 +73,8 @@ import {
   SiKotlin,
   SiDart,
   SiFlutter,
-  SiSqlite
+  SiSqlite,
+  SiWordpress
 } from 'react-icons/si'
 
 // ---------------------
@@ -107,6 +111,9 @@ export const StarIcon = FaStar
 export const ExternalLinkIcon = FaArrowUpRightFromSquare
 export const FolderIcon = FaFolder
 export const JavaIcon = FaJava
+export const GridIcon = HiSquares2X2
+export const TableIcon = HiTableCells
+export const CarouselIcon = HiViewColumns
 
 // ---------------------
 // Social Icons
@@ -141,6 +148,7 @@ export const getTechIcon = (tech) => {
     'React native': SiReact,
     'Liquid (Shopify)': SiShopify,
     'Flutter': SiFlutter,
+    'Wordpress': SiWordpress,
 
     // Databases
     'Mysql': SiMysql,
