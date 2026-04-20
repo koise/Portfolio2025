@@ -8,14 +8,14 @@ function Engagements() {
       date: 'Current',
       type: 'work',
       icon: MonitorIcon,
-      description: 'Junior Web Developer'
+      description: 'Junior Full-Stack Web Developer'
     },
     {
       title: 'Transcend Enterprise Solutions Intern',
       date: '2026',
       type: 'work',
       icon: BriefcaseIcon,
-      description: 'Internship role focusing on WordPress and Web Developer, and Software Engineering Intern.'
+      description: 'Internship role focusing on WordPress and Full Stack Web Developer, and Software Engineering Intern.'
     },
     {
       title: 'Shopify Admin Assistant & Web Builder',
