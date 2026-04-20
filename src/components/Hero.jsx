@@ -20,7 +20,7 @@ const SOCIALS = [
     handle: 'koise',
   },
   {
-    href: '#',
+    href: 'https://www.linkedin.com/in/bart-jason-guevarra-edades-a3a2993a5/',
     label: 'LinkedIn',
     Icon: LinkedInIcon,
     handle: 'bartjasonedades',
