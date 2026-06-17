@@ -8,7 +8,7 @@ function Engagements() {
       date: 'Current',
       type: 'work',
       icon: MonitorIcon,
-      description: 'Junior Full-Stack Web Developer'
+      description: 'Junior System Developer'
     },
     {
       title: 'Transcend Enterprise Solutions Intern',
