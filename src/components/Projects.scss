@@ -5,7 +5,7 @@
   padding: 20px;
   background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden removed — it was creating a stacking context that trapped the portal */
 
   &::before {
     content: '';
@@ -42,6 +42,7 @@
   position: relative;
   margin: 0 -1rem;
   padding: 0 1rem;
+  /* no overflow property here — let the portal escape freely */
 
   @include mobile {
     margin: 0;
@@ -201,6 +202,7 @@
   flex-direction: column;
   animation: slideInUp 0.6s ease-out backwards;
   animation-delay: calc(var(--animation-order) * 0.08s);
+  cursor: pointer;
 
   @include mobile {
     min-width: 280px;
@@ -454,6 +456,65 @@
   @include mobile {
     padding: 1rem;
     gap: 0.625rem;
+  }
+}
+
+// Demo Button
+.project-demo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.55rem 0;
+  margin-top: auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--project-color, var(--accent));
+    border-color: var(--project-color, var(--accent));
+    color: white;
+
+    .demo-btn-dot {
+      background: white;
+      box-shadow: 0 0 0 0 white;
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.demo-btn-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: demo-pulse 2s ease infinite;
+  flex-shrink: 0;
+
+  @keyframes demo-pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.4);
+    }
+
+    50% {
+      opacity: 0.7;
+      box-shadow: 0 0 0 4px rgba(255, 152, 0, 0);
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './Projects.scss'
 import { FolderIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon, CarouselIcon, GridIcon, TableIcon } from './Icons'
+import ProjectModal from './ProjectModal'
 import project1 from '../assets/projects/Project1.png'
 import project2 from '../assets/projects/Project2.png'
 import project3 from '../assets/projects/Project3.png'
@@ -20,6 +21,7 @@ function Projects() {
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [hoveredProject, setHoveredProject] = useState(null)
   const [viewMode, setViewMode] = useState('carousel') // 'carousel', 'grid', 'table'
+  const [selectedProject, setSelectedProject] = useState(null)
   const scrollContainerRef = useRef(null)
 
   const projects = [
@@ -197,6 +199,7 @@ function Projects() {
                   className={`project-card ${hoveredProject === project.id ? 'hovered' : ''}`}
                   onMouseEnter={() => setHoveredProject(project.id)}
                   onMouseLeave={() => setHoveredProject(null)}
+                  onClick={() => setSelectedProject(project)}
                   style={{ '--project-color': project.color, '--animation-order': index }}
                 >
                   {project.featured && (
@@ -240,6 +243,15 @@ function Projects() {
                         <span className="tech-more">+{project.technologies.length - 4}</span>
                       )}
                     </div>
+
+                    <button
+                      className="project-demo-btn"
+                      onClick={(e) => { e.stopPropagation(); setSelectedProject(project) }}
+                      aria-label={`Open demo for ${project.title}`}
+                    >
+                      <span className="demo-btn-dot" />
+                      View Demo
+                    </button>
                   </div>
 
                   <div className="project-number">
@@ -283,6 +295,13 @@ function Projects() {
           </a>
         </div> */}
       </div>
+
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </section>
   )
 }

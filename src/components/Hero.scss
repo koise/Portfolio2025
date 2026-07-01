@@ -3,20 +3,19 @@
 
 /* ── Section ─────────────────────────────────────────── */
 .hero {
-  min-height: 100svh;
   display: flex;
   align-items: center;
+  justify-content: center;
   background: var(--bg-primary);
   padding: $spacing-xl 0;
 
   @include mobile {
     padding: $spacing-md 0;
-    align-items: flex-start;
   }
 }
 
 .container {
-  max-width: 420px;
+  max-width: 380px;
   margin: 0 auto;
   padding: 0 $spacing-md;
   width: 100%;
@@ -39,8 +38,15 @@
   animation: card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes card-in {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -96,8 +102,15 @@
   animation: blink 2.2s ease infinite;
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.25; }
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.25;
+    }
   }
 }
 
@@ -123,10 +136,19 @@
   &:hover {
     background: var(--accent);
     border-color: var(--accent);
-    svg { color: white; }
+
+    svg {
+      color: white;
+    }
   }
-  &:active { transform: scale(0.92); }
-  &.dark svg { color: #fbbf24; }
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  &.dark svg {
+    color: #fbbf24;
+  }
 }
 
 /* ── Main Body ────────────────────────────────────────── */
@@ -168,8 +190,14 @@
 
   &.hovered {
     transform: scale(1.05);
-    .avatar-default { opacity: 0; }
-    .avatar-hover   { opacity: 1; }
+
+    .avatar-default {
+      opacity: 0;
+    }
+
+    .avatar-hover {
+      opacity: 1;
+    }
   }
 
   img {
@@ -181,8 +209,13 @@
     transition: opacity 0.25s ease;
   }
 
-  .avatar-default { opacity: 1; }
-  .avatar-hover   { opacity: 0; }
+  .avatar-default {
+    opacity: 1;
+  }
+
+  .avatar-hover {
+    opacity: 0;
+  }
 
   .avatar-fallback {
     width: 100%;
@@ -246,7 +279,9 @@
   margin: 0;
   letter-spacing: -0.02em;
 
-  @include mobile { font-size: 1.6rem; }
+  @include mobile {
+    font-size: 1.6rem;
+  }
 }
 
 .profile-bio {
@@ -319,7 +354,9 @@
   color: var(--accent);
   line-height: 1;
 
-  @include mobile { font-size: 1.5rem; }
+  @include mobile {
+    font-size: 1.5rem;
+  }
 }
 
 .stat-label {
@@ -370,7 +407,9 @@
     box-shadow: 0 6px 16px rgba(255, 152, 0, 0.3);
   }
 
-  &:active { transform: scale(0.98); }
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .btn-secondary {
@@ -399,7 +438,9 @@
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
   }
 
-  &:active { transform: scale(0.98); }
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 /* ── Social Footer ────────────────────────────────────── */
@@ -433,9 +474,18 @@
   &:hover {
     background: var(--bg-secondary);
 
-    .social-icon { color: var(--accent); }
-    .social-label { color: var(--accent); }
-    .social-handle { color: var(--accent); opacity: 0.75; }
+    .social-icon {
+      color: var(--accent);
+    }
+
+    .social-label {
+      color: var(--accent);
+    }
+
+    .social-handle {
+      color: var(--accent);
+      opacity: 0.75;
+    }
   }
 }
 

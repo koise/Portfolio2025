@@ -14,14 +14,19 @@
   }
 
   .about-card {
-    background: var(--card-background);
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 1.25rem;
     box-shadow: var(--card-shadow);
     transition: transform 160ms ease, box-shadow 160ms ease;
 
-    h3 {
-      margin: 0 0 0.5rem 0;
+    .card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin: 0 0 0.6rem 0;
     }
 
     &:hover {

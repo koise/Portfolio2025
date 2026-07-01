@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import './Certifications.scss'
+import CertModal from './CertModal'
 import {
   TrophyIcon,
   StarIcon,
@@ -99,6 +100,7 @@ function Certifications() {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [viewMode, setViewMode] = useState('carousel')
+  const [selectedCert, setSelectedCert] = useState(null)
   const scrollContainerRef = useRef(null)
 
   useEffect(() => {
@@ -179,9 +181,10 @@ function Certifications() {
           >
             <div className="certifications-scroll">
               {certifications.map((cert, index) => (
-                <div 
-                  key={cert.id} 
+                <div
+                  key={cert.id}
                   className="cert-card"
+                  onClick={() => setSelectedCert(cert)}
                   style={{
                     '--cert-color': cert.color || 'var(--accent)',
                     '--animation-order': index
@@ -207,14 +210,16 @@ function Certifications() {
                     </div>
 
                     <div className="cert-content">
-                      <a
-                        href={cert.link}
+                      <button
                         className="cert-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          setSelectedCert(cert)
+                        }}
                       >
                         {cert.linkText} <ExternalLinkIcon className="link-icon" />
-                      </a>
+                      </button>
                     </div>
                   </div>
 
@@ -236,6 +241,13 @@ function Certifications() {
           )}
         </div>
       </div>
+
+      {selectedCert && (
+        <CertModal
+          cert={selectedCert}
+          onClose={() => setSelectedCert(null)}
+        />
+      )}
     </section>
   )
 }
